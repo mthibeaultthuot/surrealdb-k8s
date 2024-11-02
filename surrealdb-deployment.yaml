@@ -22,3 +22,28 @@ spec:
           env:
             - name: DB_USER
               value: "root"
+            - name: DB_PASS
+              value: "root"
+            - name: DB_NAMESPACE
+              value: "veem"
+          volumeMounts:
+            - name: surrealdb-storage
+              mountPath: /home/fedora/data/surrealdb
+      volumes:
+        - name: surrealdb-storage
+          persistentVolumeClaim:
+            claimName: surrealdb-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: surrealdb
+spec:
+  type: NodePort  # Change to LoadBalancer if using a cloud provider
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+      nodePort: 30000  # Optional: Specify the node port (30000-32767)
+  selector:
+    app: surrealdb
