@@ -22,28 +22,3 @@ spec:
           env:
             - name: DB_USER
               value: "root"
-"surrealdb-deployment.yaml" 50L, 1115B                                                         1,1           Top
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: surrealdb
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: surrealdb
-  template:
-    metadata:
-      labels:
-        app: surrealdb
-    spec:
-      containers:
-        - name: surrealdb
-          image: surrealdb/surrealdb:latest
-          ports:
-            - containerPort: 8000
-          args:
-            - "start"
-          env:
-            - name: DB_USER
-              value: "root"
